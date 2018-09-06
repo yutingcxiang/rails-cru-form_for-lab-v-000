@@ -23,7 +23,7 @@ class GenresController < ApplicationController
     redirect_to genre_path(@genre)
   end
   
-  def params(*args)
+  def songs_params
     params.require(:genre).permit(:name)
   end
 end

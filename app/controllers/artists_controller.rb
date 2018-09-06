@@ -4,23 +4,26 @@ class ArtistsController < ApplicationController
   end
   
   def create
-    @artist = Artist.new(params(:title, :room_number))
-    @school_class.save
-    redirect_to school_class_path(@school_class)
+    @artist = Artist.new(params(:name, :bio))
+    @artist.save
+    redirect_to artist_path(@artist)
   end
   
   def show
-    @school_class = SchoolClass.find_by(id: params[:id])
+    @artist = Artist.find_by(id: params[:id])
   end
   
   def edit
-    @school_class = SchoolClass.find_by(id: params[:id])
+    @artist = Artist.find_by(id: params[:id])
   end
   
   def update
-    @school_class = SchoolClass.find_by(id: params[:id])
-    @school_class.update(school_class_params(:title, :room_number))
-    redirect_to school_class_path(@school_class)
+    @artist = Artist.find_by(id: params[:id])
+    @artist.update(params(:name, :bio))
+    redirect_to artist_path(@artist)
   end
   
+  def params(*args)
+    params.require(:artist).permit(*args)
+  end
 end
